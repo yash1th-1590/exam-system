@@ -1,0 +1,614 @@
+[
+  {
+    "id": "teacher1",
+    "name": "Anitha",
+    "username": "anitha",
+    "password": "anitha123",
+    "role": "teacher",
+    "department": "Computer Science",
+    "sections": [
+      "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+      "34fc97b7-1d61-4d02-8fe7-494944282867"
+    ]
+  },
+  {
+    "id": "s1",
+    "name": "Aarav Sharma",
+    "username": "student1",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0501"
+  },
+  {
+    "id": "s2",
+    "name": "Vihaan Kumar",
+    "username": "student2",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0502"
+  },
+  {
+    "id": "s3",
+    "name": "Vivaan Singh",
+    "username": "student3",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0503"
+  },
+  {
+    "id": "s4",
+    "name": "Ananya Reddy",
+    "username": "student4",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0504"
+  },
+  {
+    "id": "s5",
+    "name": "Diya Patel",
+    "username": "student5",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0505"
+  },
+  {
+    "id": "s6",
+    "name": "Advik Gupta",
+    "username": "student6",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0506"
+  },
+  {
+    "id": "s7",
+    "name": "Kabir Nair",
+    "username": "student7",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0507"
+  },
+  {
+    "id": "s8",
+    "name": "Pari Sharma",
+    "username": "student8",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0508"
+  },
+  {
+    "id": "s9",
+    "name": "Sai Reddy",
+    "username": "student9",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0509"
+  },
+  {
+    "id": "s10",
+    "name": "Ishaan Verma",
+    "username": "student10",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0510"
+  },
+  {
+    "id": "s11",
+    "name": "Aadhya K",
+    "username": "student11",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0511"
+  },
+  {
+    "id": "s12",
+    "name": "Reyansh M",
+    "username": "student12",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0512"
+  },
+  {
+    "id": "s13",
+    "name": "Sia N",
+    "username": "student13",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0513"
+  },
+  {
+    "id": "s14",
+    "name": "Krishna P",
+    "username": "student14",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0514"
+  },
+  {
+    "id": "s15",
+    "name": "Anvi Q",
+    "username": "student15",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0515"
+  },
+  {
+    "id": "s16",
+    "name": "Ishita R",
+    "username": "student16",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0516"
+  },
+  {
+    "id": "s17",
+    "name": "Dev S",
+    "username": "student17",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0517"
+  },
+  {
+    "id": "s18",
+    "name": "Anaya T",
+    "username": "student18",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0518"
+  },
+  {
+    "id": "s19",
+    "name": "Arjun U",
+    "username": "student19",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0519"
+  },
+  {
+    "id": "s20",
+    "name": "Kiara V",
+    "username": "student20",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0520"
+  },
+  {
+    "id": "s21",
+    "name": "Shaurya W",
+    "username": "student21",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0521"
+  },
+  {
+    "id": "s22",
+    "name": "Myra X",
+    "username": "student22",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0522"
+  },
+  {
+    "id": "s23",
+    "name": "Pranav Y",
+    "username": "student23",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0523"
+  },
+  {
+    "id": "s24",
+    "name": "Sara Z",
+    "username": "student24",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0524"
+  },
+  {
+    "id": "s25",
+    "name": "Aryan AA",
+    "username": "student25",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0525"
+  },
+  {
+    "id": "s26",
+    "name": "Tara AB",
+    "username": "student26",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0526"
+  },
+  {
+    "id": "s27",
+    "name": "Neil AC",
+    "username": "student27",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0527"
+  },
+  {
+    "id": "s28",
+    "name": "Zara AD",
+    "username": "student28",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0528"
+  },
+  {
+    "id": "s29",
+    "name": "Rohan AE",
+    "username": "student29",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0529"
+  },
+  {
+    "id": "s30",
+    "name": "Meera AF",
+    "username": "student30",
+    "password": "stud123",
+    "role": "student",
+    "section": "5b9e2de5-fa8b-44f2-b5b8-31041a5c00dd",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A0530"
+  },
+  {
+    "id": "s31",
+    "name": "Dhruv AG",
+    "username": "student31",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K1"
+  },
+  {
+    "id": "s32",
+    "name": "Lakshya AH",
+    "username": "student32",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K2"
+  },
+  {
+    "id": "s33",
+    "name": "Navya AI",
+    "username": "student33",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K3"
+  },
+  {
+    "id": "s34",
+    "name": "Ritvik AJ",
+    "username": "student34",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K4"
+  },
+  {
+    "id": "s35",
+    "name": "Shreya AK",
+    "username": "student35",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K5"
+  },
+  {
+    "id": "s36",
+    "name": "Aditya AL",
+    "username": "student36",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K6"
+  },
+  {
+    "id": "s37",
+    "name": "Kavya AM",
+    "username": "student37",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K7"
+  },
+  {
+    "id": "s38",
+    "name": "Atharv AN",
+    "username": "student38",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K8"
+  },
+  {
+    "id": "s39",
+    "name": "Vanya AO",
+    "username": "student39",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05K9"
+  },
+  {
+    "id": "s40",
+    "name": "Shaunak AP",
+    "username": "student40",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P0"
+  },
+  {
+    "id": "s41",
+    "name": "Tanvi AQ",
+    "username": "student41",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P1"
+  },
+  {
+    "id": "s42",
+    "name": "Yash AR",
+    "username": "student42",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P2"
+  },
+  {
+    "id": "s43",
+    "name": "Prisha AS",
+    "username": "student43",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P3"
+  },
+  {
+    "id": "s44",
+    "name": "Rudra AT",
+    "username": "student44",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P4"
+  },
+  {
+    "id": "s45",
+    "name": "Saanvi AU",
+    "username": "student45",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P5"
+  },
+  {
+    "id": "s46",
+    "name": "Manvik AV",
+    "username": "student46",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P6"
+  },
+  {
+    "id": "s47",
+    "name": "Jiya AW",
+    "username": "student47",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P7"
+  },
+  {
+    "id": "s48",
+    "name": "Aarush AX",
+    "username": "student48",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P8"
+  },
+  {
+    "id": "s49",
+    "name": "Maya AY",
+    "username": "student49",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05P9"
+  },
+  {
+    "id": "s50",
+    "name": "Arnav AZ",
+    "username": "student50",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q0"
+  },
+  {
+    "id": "s51",
+    "name": "Ira BA",
+    "username": "student51",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q1"
+  },
+  {
+    "id": "s52",
+    "name": "Yuvaan BB",
+    "username": "student52",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q2"
+  },
+  {
+    "id": "s53",
+    "name": "Alisha BC",
+    "username": "student53",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q3"
+  },
+  {
+    "id": "s54",
+    "name": "Vedant BD",
+    "username": "student54",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q4"
+  },
+  {
+    "id": "s55",
+    "name": "Nitya BE",
+    "username": "student55",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q5"
+  },
+  {
+    "id": "s56",
+    "name": "Ishaan BF",
+    "username": "student56",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q6"
+  },
+  {
+    "id": "s57",
+    "name": "Anika BG",
+    "username": "student57",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q7"
+  },
+  {
+    "id": "s58",
+    "name": "Reyansh BH",
+    "username": "student58",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q8"
+  },
+  {
+    "id": "s59",
+    "name": "Sahil BI",
+    "username": "student59",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05Q9"
+  },
+  {
+    "id": "s60",
+    "name": "Tanishq BJ",
+    "username": "student60",
+    "password": "stud123",
+    "role": "student",
+    "section": "34fc97b7-1d61-4d02-8fe7-494944282867",
+    "department": "Computer Science and Engineering",
+    "enrollmentNo": "24261A05R0"
+  }
+]

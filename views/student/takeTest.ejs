@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= test.title %></title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .answer-textarea { width: 100%; padding: 10px; border: 1.5px solid #dde1f0; border-radius: 8px; font-family: inherit; }
+  .fillblank-input { width: 100%; padding: 8px; border: 1.5px solid #dde1f0; border-radius: 8px; }
+  .radio-label, .checkbox-label { display: block; margin: 10px 0; cursor: pointer; }
+  .radio-label input, .checkbox-label input { margin-right: 10px; }
+</style>
+<script>
+  let secs = <%= test.duration %> * 60;
+  let timerInterval;
+  
+  function tick() {
+    const m = Math.floor(secs/60), s = secs%60;
+    document.getElementById('timer').textContent = m + ':' + String(s).padStart(2,'0');
+    if (secs <= 0) {
+      clearInterval(timerInterval);
+      if(confirm('Time is up! Submit your exam?')) {
+        document.getElementById('exam-form').submit();
+      }
+    }
+    secs--;
+  }
+  
+  window.onload = function() {
+    timerInterval = setInterval(tick, 1000);
+  };
+  
+  function confirmSubmit() {
+    return confirm('Are you sure you want to submit your exam? You cannot change answers after submission.');
+  }
+</script>
+</head>
+<body>
+<nav><span>🎓 <%= user.name %></span><span class="timer">⏱ <span id="timer"></span></span></nav>
+<div class="container">
+  <h2><%= test.title %></h2>
+  <p><strong>Total Marks:</strong> <%= test.totalMarks %></p>
+  <form method="POST" action="/student/submit/<%= test.id %>" id="exam-form" onsubmit="return confirmSubmit()">
+    <% test.questions.forEach((q, i) => { %>
+      <div class="q-block">
+        <p><b><%= i+1 %>. <%= q.question %></b> <span style="color: #666;">[<%= q.marks %> marks]</span></p>
+        
+        <% if(q.type === 'single') { %>
+          <% q.options.forEach(opt => { %>
+            <label class="radio-label">
+              <input type="radio" name="q<%= q.id %>" value="<%= opt %>" required> <%= opt %>
+            </label>
+          <% }) %>
+        <% } else if(q.type === 'multiple') { %>
+          <p><small>(Select all that apply)</small></p>
+          <% q.options.forEach(opt => { %>
+            <label class="checkbox-label">
+              <input type="checkbox" name="q<%= q.id %>" value="<%= opt %>"> <%= opt %>
+            </label>
+          <% }) %>
+        <% } else if(q.type === 'fillblank') { %>
+          <input type="text" name="q<%= q.id %>" class="fillblank-input" placeholder="Your answer here..." required>
+        <% } else if(q.type === 'oneline') { %>
+          <input type="text" name="q<%= q.id %>" class="fillblank-input" placeholder="Your answer here..." required>
+        <% } else if(q.type === 'paragraph') { %>
+          <textarea name="q<%= q.id %>" class="answer-textarea" rows="6" placeholder="Write your answer here..." required></textarea>
+        <% } %>
+      </div>
+    <% }) %>
+    <button type="submit" class="btn">Submit Exam</button>
+  </form>
+</div>
+</body>
+</html>

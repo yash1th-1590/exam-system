@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Student</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .form-group { margin-bottom: 20px; }
+  label { display: block; margin-bottom: 8px; font-weight: bold; color: #1a1f3c; }
+  input, select { width: 100%; padding: 10px; border: 1.5px solid #dde1f0; border-radius: 8px; font-size: 15px; }
+</style>
+</head>
+<body>
+<nav><span>👩‍🏫 <%= user.name %></span><a href="/teacher/dashboard">← Dashboard</a><a href="/logout">Logout</a></nav>
+<div class="container">
+  <h2>Add New Student</h2>
+  <% if(error){ %><p class="error"><%= error %></p><% } %>
+  
+  <form method="POST" action="/teacher/add-student">
+    <div class="form-group">
+      <label>Full Name *</label>
+      <input type="text" name="name" placeholder="Student's full name" required>
+    </div>
+    
+    <div class="form-group">
+      <label>Username *</label>
+      <input type="text" name="username" placeholder="Username for login" required>
+    </div>
+    
+    <div class="form-group">
+      <label>Password *</label>
+      <input type="password" name="password" placeholder="Password" required>
+    </div>
+    
+    <div class="form-group">
+      <label>Enrollment Number</label>
+      <input type="text" name="enrollmentNo" placeholder="Optional enrollment/roll number">
+    </div>
+    
+    <div class="form-group">
+      <label>Assign to Section (Optional)</label>
+      <select name="sectionId">
+        <option value="">-- Select Section --</option>
+        <% sections.forEach(section => { %>
+          <option value="<%= section.id %>"><%= section.name %> (<%= section.department %>)</option>
+        <% }) %>
+      </select>
+    </div>
+    
+    <button type="submit" class="btn">Add Student</button>
+    <a href="/teacher/dashboard" class="btn btn-outline">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

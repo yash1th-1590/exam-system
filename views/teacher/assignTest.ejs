@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Assign Test</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .section-assign { background: #e8f5e9; padding: 15px; border-radius: 8px; margin: 20px 0; }
+  .info-box { background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #2196f3; }
+  .no-students { background: #fff3e0; padding: 40px; text-align: center; border-radius: 12px; }
+  .assigned-badge { background: #4caf50; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; }
+</style>
+</head>
+<body>
+<nav><span>👩‍🏫 <%= user.name %></span><a href="/teacher/dashboard">← Dashboard</a><a href="/logout">Logout</a></nav>
+<div class="container">
+  <h2>Assign Test: "<%= test.title %>"</h2>
+  
+  <div class="info-box">
+    <strong>📊 Assignment Status:</strong><br>
+    ✅ Already assigned to <strong><%= assignedCount %></strong> students<br>
+    📝 Total students in your sections: <strong><%= totalStudents %></strong><br>
+    🆓 Still unassigned: <strong><%= students.length %></strong> students
+  </div>
+  
+  <% if(noStudentsLeft) { %>
+    <div class="no-students">
+      <p>🎉 <strong>All students have been assigned this test!</strong></p>
+      <p>All <%= totalStudents %> students in your sections have already received this test.</p>
+      <a href="/teacher/my-tests" class="btn">Back to My Tests</a>
+    </div>
+  <% } else { %>
+  
+    <div class="section-assign">
+      <h3>Quick Assign by Section</h3>
+      <form method="POST" action="/teacher/assign/<%= test.id %>">
+        <input type="hidden" name="assignBySection" value="true">
+        <select name="sectionId" style="width: 70%; padding: 8px; margin-right: 10px;">
+          <option value="">Select a section to assign to unassigned students</option>
+          <% sections.forEach(section => { %>
+            <% if(section.unassignedCount > 0) { %>
+              <option value="<%= section.id %>"><%= section.name %> (Assign to <%= section.unassignedCount %> unassigned students)</option>
+            <% } %>
+          <% }) %>
+        </select>
+        <button type="submit" class="btn">Assign to Section</button>
+      </form>
+    </div>
+    
+    <h3>Or Select Individual Students (Unassigned Only):</h3>
+    <form method="POST" action="/teacher/assign/<%= test.id %>">
+      <% if(students.length === 0) { %>
+        <p>No unassigned students available.</p>
+      <% } else { %>
+        <% students.forEach(s => { %>
+          <label class="check-row">
+            <input type="checkbox" name="studentIds" value="<%= s.id %>">
+            <strong><%= s.name %></strong> (<%= s.username %>) 
+            <% if(s.enrollmentNo) { %>
+              <span class="pill">Enroll: <%= s.enrollmentNo %></span>
+            <% } %>
+          </label>
+        <% }) %>
+        <button type="submit" class="btn">Assign Selected Students</button>
+      <% } %>
+    </form>
+  <% } %>
+</div>
+</body>
+</html>

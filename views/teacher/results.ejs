@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Results - <%= test.title %></title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  * { box-sizing: border-box; }
+  
+  .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+  
+  /* Summary Cards */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .summary-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .summary-card:hover { transform: translateY(-3px); }
+  .summary-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #1a1f3c;
+  }
+  .summary-label {
+    color: #666;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .summary-card.pass .summary-number { color: #28a745; }
+  .summary-card.fail .summary-number { color: #dc3545; }
+  .summary-card.pending .summary-number { color: #ff9800; }
+  .summary-card.average .summary-number { color: #4a5bce; }
+  
+  /* Section Tabs */
+  .section-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #e0e0e0;
+  }
+  .section-tab {
+    padding: 12px 24px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .section-tab.active {
+    background: #1a1f3c;
+    color: white;
+  }
+  .section-tab:hover:not(.active) {
+    background: #e0e0e0;
+  }
+  .section-tab .badge {
+    background: rgba(0,0,0,0.1);
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 8px;
+    font-size: 12px;
+  }
+  .section-tab.active .badge {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  /* Section Content */
+  .section-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .section-content.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Section Header */
+  .section-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .section-header h3 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+  }
+  .section-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .section-stat {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+  
+  /* Results Table */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+  .results-table th {
+    background: #1a1f3c;
+    color: white;
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .results-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+  .results-table tr:hover {
+    background: #f8f9fa;
+  }
+  
+  /* Status Badges */
+  .status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .status-pending {
+    background: #fff3e0;
+    color: #ed6c02;
+  }
+  .status-graded {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+  .status-evaluated {
+    background: #e3f2fd;
+    color: #1976d2;
+  }
+  
+  /* Result Colors */
+  .pass {
+    color: #28a745;
+    font-weight: 600;
+  }
+  .fail {
+    color: #dc3545;
+    font-weight: 600;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-view {
+    background: #4a5bce;
+    color: white;
+  }
+  .btn-view:hover {
+    background: #3a4bb8;
+  }
+  .btn-evaluate {
+    background: #ff9800;
+    color: white;
+  }
+  .btn-evaluate:hover {
+    background: #e68900;
+  }
+  .btn-comment {
+    background: #28a745;
+    color: white;
+  }
+  .btn-comment:hover {
+    background: #218838;
+  }
+  
+  /* Comment Form */
+  .comment-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .comment-input {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    width: 150px;
+  }
+  .comment-input:focus {
+    outline: none;
+    border-color: #4a5bce;
+  }
+  
+  /* Pending Students Grid */
+  .pending-section {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .pending-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pending-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .pending-student {
+    background: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid #ff9800;
+  }
+  .student-name {
+    font-weight: 500;
+  }
+  .student-enroll {
+    font-size: 11px;
+    color: #666;
+  }
+  
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 60px;
+    background: white;
+    border-radius: 12px;
+    color: #999;
+  }
+  
+  /* Score Display */
+  .score-cell {
+    font-weight: 600;
+  }
+  .score-high {
+    color: #28a745;
+  }
+  .score-medium {
+    color: #ff9800;
+  }
+  .score-low {
+    color: #dc3545;
+  }
+</style>
+<script>
+  function showSection(sectionId, event) {
+    // Hide all section contents
+    document.querySelectorAll('.section-content').forEach(el => {
+      el.classList.remove('active');
+    });
+    // Remove active class from all tabs
+    document.querySelectorAll('.section-tab').forEach(el => {
+      el.classList.remove('active');
+    });
+    // Show selected section
+    const targetSection = document.getElementById(`section-${sectionId}`);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
+    // Activate selected tab
+    if (event && event.target) {
+      event.target.classList.add('active');
+    }
+  }
+</script>
+</head>
+<body>
+<nav>
+  <span>👩‍🏫 <%= user.name %></span>
+  <a href="/teacher/dashboard">Dashboard</a>
+  <a href="/teacher/my-tests">My Tests</a>
+  <a href="/logout">Logout</a>
+</nav>
+
+<div class="container">
+  <h2>📊 Test Results: "<%= test.title %>"</h2>
+  
+  <!-- Summary Cards -->
+  <div class="summary-grid">
+    <div class="summary-card pass">
+      <div class="summary-number"><%= results.filter(r => r.percent >= 50).length %></div>
+      <div class="summary-label">✅ Passed</div>
+    </div>
+    <div class="summary-card fail">
+      <div class="summary-number"><%= results.filter(r => r.percent < 50 && r.percent !== null).length %></div>
+      <div class="summary-label">❌ Failed</div>
+    </div>
+    <div class="summary-card pending">
+      <div class="summary-number"><%= results.filter(r => r.percent === null).length %></div>
+      <div class="summary-label">⏳ Pending Evaluation</div>
+    </div>
+    <div class="summary-card average">
+      <div class="summary-number"><%= (results.reduce((sum, r) => sum + (r.percent || 0), 0) / (results.length || 1)).toFixed(1) %>%</div>
+      <div class="summary-label">📊 Average Score</div>
+    </div>
+  </div>
+
+  <%
+    // Function to get score class - defined here for EJS
+    function getScoreClass(percentage) {
+      if (percentage >= 70) return 'score-high';
+      if (percentage >= 40) return 'score-medium';
+      return 'score-low';
+    }
+    
+    // Group results by section
+    const sectionsMap = new Map();
+    results.forEach(result => {
+      const sectionName = result.studentSection || 'No Section';
+      if (!sectionsMap.has(sectionName)) {
+        sectionsMap.set(sectionName, []);
+      }
+      sectionsMap.get(sectionName).push(result);
+    });
+    
+    // Create section data array
+    const sectionData = [];
+    
+    // Add sections that have results
+    for (const [sectionName, sectionResults] of sectionsMap) {
+      // Find if this section exists in the sections list
+      const sectionInfo = sections.find(s => s.name === sectionName);
+      const totalStudents = sectionInfo ? sectionInfo.students.length : sectionResults.length;
+      
+      // Find pending students for this section
+      let pendingStudents = [];
+      if (sectionInfo) {
+        const submittedIds = sectionResults.map(r => r.studentId);
+        pendingStudents = students.filter(s => 
+          sectionInfo.students.includes(s.id) && !submittedIds.includes(s.id)
+        );
+      }
+      
+      sectionData.push({
+        id: sectionName.replace(/[^a-zA-Z0-9]/g, '_'),
+        name: sectionName,
+        results: sectionResults,
+        pending: pendingStudents,
+        submittedCount: sectionResults.length,
+        pendingCount: pendingStudents.length,
+        totalCount: totalStudents
+      });
+    }
+  %>
+  
+  <% if(sectionData.length > 0) { %>
+    <!-- Section Tabs -->
+    <div class="section-tabs">
+      <% sectionData.forEach((section, index) => { %>
+        <button class="section-tab <%= index === 0 ? 'active' : '' %>" onclick="showSection('<%= section.id %>', event)">
+          📚 <%= section.name %>
+          <span class="badge"><%= section.submittedCount %>/<%= section.totalCount %></span>
+        </button>
+      <% }) %>
+    </div>
+    
+    <!-- Section Contents -->
+    <% sectionData.forEach((section, index) => { %>
+      <div id="section-<%= section.id %>" class="section-content <%= index === 0 ? 'active' : '' %>">
+        
+        <!-- Section Header -->
+        <div class="section-header">
+          <h3><%= section.name %></h3>
+          <div class="section-stats">
+            <span class="section-stat">📝 Submitted: <%= section.submittedCount %>/<%= section.totalCount %></span>
+            <span class="section-stat">⏳ Pending: <%= section.pendingCount %></span>
+            <span class="section-stat">✅ Passed: <%= section.results.filter(r => r.percent >= 50).length %></span>
+            <span class="section-stat">❌ Failed: <%= section.results.filter(r => r.percent < 50 && r.percent !== null).length %></span>
+          </div>
+        </div>
+        
+        <!-- Results Table -->
+        <% if(section.results.length > 0) { %>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Enrollment No</th>
+                <th>Score</th>
+                <th>Percentage</th>
+                <th>Result</th>
+                <th>Status</th>
+                <th>Submitted At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% section.results.forEach(r => { 
+                const scorePercent = r.percent || 0;
+                const scoreClass = getScoreClass(scorePercent);
+              %>
+                <tr>
+                  <td><strong><%= r.studentName %></strong></td>
+                  <td><%= r.studentEnrollment || 'N/A' %></td>
+                  <td class="score-cell <%= scoreClass %>"><%= r.score !== null ? r.score + ' / ' + r.totalMarks : 'Pending' %></td>
+                  <td><%= r.percent !== null ? r.percent + '%' : '-' %></td>
+                  <td class="<%= scorePercent >= 50 ? 'pass' : (scorePercent > 0 ? 'fail' : '') %>">
+                    <%= scorePercent >= 50 ? '✅ PASS' : (scorePercent > 0 ? '❌ FAIL' : '⏳ Pending') %>
+                  </td>
+                  <td>
+                    <span class="status-badge status-<%= r.status %>">
+                      <%= r.status === 'pending_evaluation' ? '⏳ Pending Evaluation' : (r.status === 'graded' ? '✅ Auto-graded' : '📝 Evaluated') %>
+                    </span>
+                  </td>
+                  <td><%= r.submittedAt %></td>
+                  <td>
+                    <div class="action-buttons">
+                      <% if(r.correctionMode === 'manual' && r.status !== 'evaluated') { %>
+                        <a href="/teacher/evaluate/<%= test.id %>/<%= r.studentId %>" class="btn-icon btn-evaluate">✏️ Evaluate</a>
+                      <% } else { %>
+                        <a href="/teacher/evaluate/<%= test.id %>/<%= r.studentId %>" class="btn-icon btn-view">👁️ View Details</a>
+                      <% } %>
+                      
+                      <form method="POST" action="/teacher/comment/<%= test.id %>/<%= r.studentId %>" class="comment-form">
+                        <input type="text" name="comment" class="comment-input" placeholder="Add comment..." value="<%= r.teacherComment || '' %>">
+                        <button type="submit" class="btn-icon btn-comment">💬 Add</button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <div class="empty-state">
+            <p>📭 No submissions yet from this section.</p>
+          </div>
+        <% } %>
+        
+        <!-- Pending Students (Not Submitted) -->
+        <% if(section.pending && section.pending.length > 0) { %>
+          <div class="pending-section">
+            <div class="pending-title">
+              ⏳ Not Yet Submitted (<%= section.pending.length %> students)
+            </div>
+            <div class="pending-grid">
+              <% section.pending.forEach(student => { %>
+                <div class="pending-student">
+                  <div>
+                    <div class="student-name"><%= student.name %></div>
+                    <div class="student-enroll"><%= student.enrollmentNo || 'No enrollment' %></div>
+                  </div>
+                  <span style="font-size: 20px;">⏰</span>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <div class="empty-state">
+      <p>📭 No submissions yet for this test.</p>
+    </div>
+  <% } %>
+</div>
+</body>
+</html>

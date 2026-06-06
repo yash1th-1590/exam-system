@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Results</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .results-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+  .results-table th { background: #1a1f3c; color: #fff; padding: 12px 16px; text-align: left; }
+  .results-table td { padding: 12px 16px; border-bottom: 1px solid #eee; }
+  .pass { color: #1a7f3c; font-weight: 600; }
+  .fail { color: #b91c1c; font-weight: 600; }
+  .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+  .status-pending { background: #fff3e0; color: #ed6c02; }
+  .status-graded { background: #e8f5e9; color: #2e7d32; }
+  .status-evaluated { background: #e3f2fd; color: #1976d2; }
+  .section-name { font-size: 12px; color: #666; margin-top: 4px; }
+</style>
+</head>
+<body>
+<nav>
+  <span>🎓 <%= user.name %></span>
+  <a href="/student/dashboard">← Dashboard</a>
+  <a href="/logout">Logout</a>
+</nav>
+<div class="container">
+  <h2>📊 My Performance</h2>
+  <% if(user.sectionName) { %>
+    <p style="color: #666; margin-bottom: 20px;">📚 Section: <strong><%= user.sectionName %></strong></p>
+  <% } %>
+  
+  <% if(!results || results.length === 0){ %>
+    <div class="empty-state" style="background: white; border-radius: 12px; padding: 40px; text-align: center;">
+      <p>📭 No results yet. Take some tests to see your results here!</p>
+    </div>
+  <% } else { %>
+    <table class="results-table">
+      <thead>
+        <tr><th>Test Name</th><th>Section</th><th>Score</th><th>Percentage</th><th>Result</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+      <% results.forEach(r => { %>
+        <tr>
+          <td><strong><%= r.testTitle %></strong></td>
+          <td><%= r.studentSection || 'N/A' %></td>
+          <td><%= r.score !== null ? r.score + ' / ' + r.totalMarks : 'Pending' %></td>
+          <td><%= r.percent !== null ? r.percent + '%' : '-' %></td>
+          <td class="<%= (r.percent || 0) >= 50 ? 'pass' : 'fail' %>">
+            <%= (r.percent || 0) >= 50 ? '🎉 PASS' : (r.percent !== null ? '❌ FAIL' : '⏳ Pending') %>
+           </td>
+          <td>
+            <span class="status-badge status-<%= r.status %>">
+              <%= r.status === 'pending_evaluation' ? '⏳ Pending' : (r.status === 'graded' ? '✅ Auto-graded' : '📝 Evaluated') %>
+            </span>
+           </td>
+          <td><%= r.submittedAt %></td>
+          <td><a href="/student/result/<%= r.testId %>" class="btn btn-outline" style="font-size:12px; padding:5px 10px;">View Details</a></td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+</body>
+</html>

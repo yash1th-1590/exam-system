@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Dashboard</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .welcome-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+  .section-card {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .section-header {
+    background: linear-gradient(135deg, #4a5bce 0%, #6c5ce7 100%);
+    color: white;
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-header h3 {
+    margin: 0;
+    color: white;
+  }
+  .section-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+  }
+  .tests-container {
+    padding: 20px;
+  }
+  .test-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #4a5bce;
+    transition: transform 0.2s;
+  }
+  .test-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .test-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1f3c;
+    margin-bottom: 8px;
+  }
+  .test-info {
+    color: #666;
+    font-size: 13px;
+    margin: 5px 0;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .test-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .status-completed {
+    background: #d4edda;
+    color: #155724;
+  }
+  .status-pending {
+    background: #fff3e0;
+    color: #ed6c02;
+  }
+  .btn-sm {
+    padding: 6px 16px;
+    font-size: 13px;
+    margin-top: 10px;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
+  .section-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+</style>
+<script>
+  function toggleSection(sectionId) {
+    const testsDiv = document.getElementById(`tests-${sectionId}`);
+    if (testsDiv.style.display === 'none') {
+      testsDiv.style.display = 'block';
+    } else {
+      testsDiv.style.display = 'none';
+    }
+  }
+</script>
+</head>
+<body>
+<nav>
+  <span>🎓 <%= user.name %></span>
+  <span style="font-size: 12px;">📚 <%= user.department || 'Computer Science' %></span>
+  <span style="font-size: 12px;">🆔 <%= user.enrollmentNo || 'N/A' %></span>
+  <a href="/student/my-results">My Results</a>
+  <a href="/logout">Logout</a>
+</nav>
+
+<div class="container">
+  <div class="welcome-card">
+    <h2>Welcome, <%= user.name %>!</h2>
+    <p>Department: <%= user.department || 'Computer Science' %> | Enrollment: <%= user.enrollmentNo || 'Not assigned' %></p>
+    <% if(user.section) { %>
+      <p>📖 Your Section: <strong><%= user.sectionName || 'Assigned Section' %></strong></p>
+    <% } %>
+  </div>
+
+  <% if(sections && sections.length > 0) { %>
+    <% sections.forEach(section => { %>
+      <div class="section-card">
+        <div class="section-header" onclick="toggleSection('<%= section.id %>')">
+          <div>
+            <span class="section-icon">📚</span>
+            <h3 style="display: inline-block;"><%= section.name %></h3>
+          </div>
+          <div>
+            <span class="section-badge"><%= section.department %></span>
+            <span class="section-badge">📝 <%= section.tests ? section.tests.length : 0 %> Tests</span>
+          </div>
+        </div>
+        
+        <div id="tests-<%= section.id %>" class="tests-container" style="display: block;">
+          <% if(section.tests && section.tests.length > 0) { %>
+            <% section.tests.forEach(test => { %>
+              <% const isAttempted = attempted.includes(test.id);
+                 const result = myResults.find(r => r.testId === test.id); %>
+              <div class="test-card">
+                <div class="test-title"><%= test.title %></div>
+                <div class="test-info">
+                  <span>📝 <%= test.questions.length %> questions</span>
+                  <span>⏱ <%= test.duration %> minutes</span>
+                  <span>🎯 Total marks: <%= test.totalMarks %></span>
+                  <span>🔧 <%= test.correctionMode === 'auto' ? 'Auto-graded' : 'Manual evaluation' %></span>
+                </div>
+                
+                <% if(isAttempted) { %>
+                  <div class="test-status status-completed">✓ Completed - Score: <%= result.score %>/<%= result.totalMarks %></div>
+                  <div class="actions">
+                    <a href="/student/result/<%= test.id %>" class="btn btn-outline btn-sm">View Result</a>
+                  </div>
+                <% } else { %>
+                  <div class="test-status status-pending">⏳ Not started</div>
+                  <div class="actions">
+                    <a href="/student/take/<%= test.id %>" class="btn btn-sm">Start Test</a>
+                  </div>
+                <% } %>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <div class="empty-state">
+              <p>📭 No tests assigned to this section yet.</p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <div class="empty-state" style="background: white; border-radius: 12px; padding: 40px;">
+      <p>📭 You are not assigned to any section yet.</p>
+      <p style="font-size: 14px; margin-top: 10px;">Please contact your teacher to be added to a section.</p>
+    </div>
+  <% } %>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Section</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .form-group { margin-bottom: 20px; }
+  label { display: block; margin-bottom: 8px; font-weight: bold; color: #1a1f3c; }
+  input, textarea, select { width: 100%; padding: 10px; border: 1.5px solid #dde1f0; border-radius: 8px; font-size: 15px; }
+  textarea { resize: vertical; }
+</style>
+</head>
+<body>
+<nav><span>👩‍🏫 <%= user.name %></span><a href="/teacher/dashboard">← Dashboard</a><a href="/logout">Logout</a></nav>
+<div class="container">
+  <h2>Create New Section/Class</h2>
+  <% if(error){ %><p class="error"><%= error %></p><% } %>
+  
+  <form method="POST" action="/teacher/create-section">
+    <div class="form-group">
+      <label>Section Name *</label>
+      <input type="text" name="sectionName" placeholder="e.g., Computer Science A, Class 10-B, Section 1" required>
+    </div>
+    
+    <div class="form-group">
+      <label>Department</label>
+      <input type="text" name="department" placeholder="e.g., Computer Science, Mathematics, Science">
+    </div>
+    
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="description" rows="3" placeholder="Optional description about this section"></textarea>
+    </div>
+    
+    <button type="submit" class="btn">Create Section</button>
+    <a href="/teacher/dashboard" class="btn btn-outline">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

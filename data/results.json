@@ -1,0 +1,48 @@
+[
+  {
+    "testId": "ac51f0dd-4a7f-44c0-8a2a-e68b9206c5bd",
+    "testTitle": "NodeJs",
+    "studentId": "s1",
+    "studentName": "Aarav Sharma",
+    "studentEnrollment": "24261A0501",
+    "studentSection": "CSE-1 Batch-1",
+    "correctionMode": "auto",
+    "status": "evaluated",
+    "answers": [
+      {
+        "qId": 1,
+        "given": "Hyper Text Markup Language",
+        "awarded": 10
+      }
+    ],
+    "score": 10,
+    "totalMarks": 10,
+    "percent": 100,
+    "teacherComment": "",
+    "submittedAt": "30/5/2026, 4:43:44 pm",
+    "evaluatedAt": "30/5/2026, 4:48:13 pm"
+  },
+  {
+    "testId": "ac51f0dd-4a7f-44c0-8a2a-e68b9206c5bd",
+    "testTitle": "NodeJs",
+    "studentId": "s8",
+    "studentName": "Pari Sharma",
+    "studentEnrollment": "24261A0508",
+    "studentSection": "CSE-1 Batch-1",
+    "correctionMode": "auto",
+    "status": "evaluated",
+    "answers": [
+      {
+        "qId": 1,
+        "given": "High Text Machine Language",
+        "awarded": 5
+      }
+    ],
+    "score": 5,
+    "totalMarks": 10,
+    "percent": 50,
+    "teacherComment": "Example for manual evaluation",
+    "submittedAt": "30/5/2026, 4:46:31 pm",
+    "evaluatedAt": "30/5/2026, 4:49:19 pm"
+  }
+]

@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head><title>Login</title><link rel="stylesheet" href="/style.css"></head><body>
+<div class="auth-box">
+  <h2>📝 Exam Portal Login</h2>
+  <% if(error){ %><p class="error"><%= error %></p><% } %>
+  <form method="POST" action="/login">
+    <input name="username" placeholder="Username" required>
+    <input name="password" type="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+  <a href="/register">New student? Register here</a>
+</div>
+</body></html>

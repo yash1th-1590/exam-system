@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Import Test - <%= test.title %></title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .question-type-select { margin: 10px 0; padding: 8px; width: 200px; }
+  .marks-input { width: 100px; margin: 10px 0; }
+  .option-input { margin: 5px 0; width: 90%; padding: 8px; }
+  .remove-btn { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-left: 10px; }
+  .remove-btn:hover { background: #c82333; }
+  .correction-mode { margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+  .correction-mode label { margin-right: 20px; }
+  .options-container { margin: 15px 0; padding: 10px; background: #f9fafd; border-radius: 8px; }
+  .option-row { display: flex; align-items: center; margin: 8px 0; gap: 10px; }
+  .option-text { flex: 1; }
+  .correct-checkbox { width: 20px; height: 20px; margin: 0; cursor: pointer; }
+  .correct-label { font-size: 13px; color: #666; margin-left: 5px; }
+  .multiple-hint { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+  .import-header { background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4caf50; }
+  .original-info { font-size: 13px; color: #666; margin-top: 5px; }
+</style>
+<script>
+  let qCount = <%= test.questions.length %>;
+  
+  function addQuestion() {
+    qCount++;
+    const div = document.createElement('div');
+    div.className = 'q-block';
+    div.id = 'q' + qCount;
+    div.innerHTML = `
+      <h4>Question ${qCount} <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove()">✕ Remove</button></h4>
+      <textarea name="question_${qCount}" placeholder="Question text" rows="3" style="width:100%; padding:8px;" required></textarea>
+      
+      <label>Question Type:</label>
+      <select name="type_${qCount}" class="question-type-select" onchange="toggleOptions(${qCount})">
+        <option value="single">Single Correct Option</option>
+        <option value="multiple">Multiple Correct Options</option>
+        <option value="fillblank">Fill in the Blank</option>
+        <option value="oneline">One Line Answer</option>
+        <option value="paragraph">Paragraph Answer</option>
+      </select>
+      
+      <div id="options_${qCount}" style="display:none;">
+        <div class="options-container">
+          <label><strong>Options (Select which are correct):</strong></label>
+          <div id="option_list_${qCount}">
+            <div class="option-row">
+              <input type="text" name="option_${qCount}_1" placeholder="Option 1" class="option-text">
+              <input type="checkbox" name="correct_${qCount}_1" value="1" class="correct-checkbox" id="correct_${qCount}_1">
+              <label for="correct_${qCount}_1" class="correct-label">Correct</label>
+            </div>
+            <div class="option-row">
+              <input type="text" name="option_${qCount}_2" placeholder="Option 2" class="option-text">
+              <input type="checkbox" name="correct_${qCount}_2" value="1" class="correct-checkbox" id="correct_${qCount}_2">
+              <label for="correct_${qCount}_2" class="correct-label">Correct</label>
+            </div>
+            <div class="option-row">
+              <input type="text" name="option_${qCount}_3" placeholder="Option 3" class="option-text">
+              <input type="checkbox" name="correct_${qCount}_3" value="1" class="correct-checkbox" id="correct_${qCount}_3">
+              <label for="correct_${qCount}_3" class="correct-label">Correct</label>
+            </div>
+            <div class="option-row">
+              <input type="text" name="option_${qCount}_4" placeholder="Option 4" class="option-text">
+              <input type="checkbox" name="correct_${qCount}_4" value="1" class="correct-checkbox" id="correct_${qCount}_4">
+              <label for="correct_${qCount}_4" class="correct-label">Correct</label>
+            </div>
+          </div>
+          <div class="multiple-hint">✓ Check all boxes that are correct answers</div>
+        </div>
+      </div>
+      
+      <div id="fillblank_${qCount}" style="display:none;">
+        <label>Correct Answer/Keyword:</label>
+        <input type="text" name="answer_${qCount}" placeholder="Correct answer or keyword" style="width:100%; padding:8px;">
+      </div>
+      
+      <div id="textanswer_${qCount}" style="display:none;">
+        <label>Sample Answer (for reference):</label>
+        <textarea name="answer_${qCount}" rows="2" placeholder="Sample answer for reference" style="width:100%; padding:8px;"></textarea>
+      </div>
+      
+      <label>Marks:</label>
+      <input type="number" name="marks_${qCount}" class="marks-input" value="1" min="0.5" step="0.5" required>
+    `;
+    document.getElementById('questions-area').appendChild(div);
+    toggleOptions(qCount);
+  }
+  
+  function toggleOptions(qid) {
+    const type = document.querySelector(`[name="type_${qid}"]`).value;
+    const optionsDiv = document.getElementById(`options_${qid}`);
+    const fillblankDiv = document.getElementById(`fillblank_${qid}`);
+    const textanswerDiv = document.getElementById(`textanswer_${qid}`);
+    
+    if(optionsDiv) optionsDiv.style.display = 'none';
+    if(fillblankDiv) fillblankDiv.style.display = 'none';
+    if(textanswerDiv) textanswerDiv.style.display = 'none';
+    
+    if (type === 'single') {
+      if(optionsDiv) {
+        optionsDiv.style.display = 'block';
+        const checkboxes = optionsDiv.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+          cb.onclick = function() {
+            if(this.checked) {
+              checkboxes.forEach(other => {
+                if(other !== this) other.checked = false;
+              });
+            }
+          };
+        });
+      }
+    } else if (type === 'multiple') {
+      if(optionsDiv) {
+        optionsDiv.style.display = 'block';
+        const checkboxes = optionsDiv.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => { cb.onclick = null; });
+      }
+    } else if (type === 'fillblank') {
+      if(fillblankDiv) fillblankDiv.style.display = 'block';
+    } else {
+      if(textanswerDiv) textanswerDiv.style.display = 'block';
+    }
+  }
+</script>
+</head>
+<body>
+<nav><span>👩‍🏫 <%= user.name %></span><a href="/teacher/my-tests">← My Tests</a><a href="/teacher/dashboard">Dashboard</a><a href="/logout">Logout</a></nav>
+<div class="container">
+  <div class="import-header">
+    <h2>📋 Importing Test: "<%= test.title %>"</h2>
+    <p class="original-info">Original test has <%= test.questions.length %> questions. You can modify any details below and save as a new test.</p>
+    <p class="original-info">📅 Originally created: <%= test.createdAt %> | 🔧 Mode: <%= test.correctionMode === 'auto' ? 'Auto-graded' : 'Manual evaluation' %></p>
+  </div>
+  
+  <form method="POST" action="/teacher/create-test">
+    <input name="title" placeholder="Test Title" value="<%= test.title %> (Copy)" required>
+    <input name="duration" type="number" placeholder="Duration (minutes)" value="<%= test.duration %>" min="1">
+    <input type="hidden" name="importFrom" value="<%= test.id %>">
+    
+    <div class="correction-mode">
+      <label><strong>Correction Mode:</strong></label><br>
+      <label><input type="radio" name="correctionMode" value="auto" <%= test.correctionMode === 'auto' ? 'checked' : '' %>> Auto Correction</label>
+      <label><input type="radio" name="correctionMode" value="manual" <%= test.correctionMode === 'manual' ? 'checked' : '' %>> Manual Correction</label>
+    </div>
+
+    <div id="questions-area">
+      <% test.questions.forEach((q, index) => { 
+        const qNum = index + 1;
+      %>
+        <div class="q-block" id="q<%= qNum %>">
+          <h4>Question <%= qNum %> 
+            <button type="button" class="remove-btn" onclick="this.parentElement.parentElement.remove()">✕ Remove</button>
+          </h4>
+          <textarea name="question_<%= qNum %>" placeholder="Question text" rows="3" style="width:100%; padding:8px;" required><%= q.question %></textarea>
+          
+          <label>Question Type:</label>
+          <select name="type_<%= qNum %>" class="question-type-select" onchange="toggleOptions(<%= qNum %>)">
+            <option value="single" <%= q.type === 'single' ? 'selected' : '' %>>Single Correct Option</option>
+            <option value="multiple" <%= q.type === 'multiple' ? 'selected' : '' %>>Multiple Correct Options</option>
+            <option value="fillblank" <%= q.type === 'fillblank' ? 'selected' : '' %>>Fill in the Blank</option>
+            <option value="oneline" <%= q.type === 'oneline' ? 'selected' : '' %>>One Line Answer</option>
+            <option value="paragraph" <%= q.type === 'paragraph' ? 'selected' : '' %>>Paragraph Answer</option>
+          </select>
+          
+          <div id="options_<%= qNum %>" style="display: <%= (q.type === 'single' || q.type === 'multiple') ? 'block' : 'none' %>;">
+            <div class="options-container">
+              <label><strong>Options (Select which are correct):</strong></label>
+              <div id="option_list_<%= qNum %>">
+                <% for(let j = 1; j <= 4; j++) { 
+                  const optionValue = q.options[j-1] || '';
+                  const isCorrect = (q.type === 'single' && q.answer === optionValue) || 
+                                   (q.type === 'multiple' && Array.isArray(q.answer) && q.answer.includes(optionValue));
+                %>
+                  <div class="option-row">
+                    <input type="text" name="option_<%= qNum %>_<%= j %>" placeholder="Option <%= j %>" class="option-text" value="<%= optionValue %>">
+                    <input type="checkbox" name="correct_<%= qNum %>_<%= j %>" value="1" class="correct-checkbox" id="correct_<%= qNum %>_<%= j %>" <%= isCorrect ? 'checked' : '' %>>
+                    <label for="correct_<%= qNum %>_<%= j %>" class="correct-label">Correct</label>
+                  </div>
+                <% } %>
+              </div>
+              <div class="multiple-hint">✓ Check all boxes that are correct answers</div>
+            </div>
+          </div>
+          
+          <div id="fillblank_<%= qNum %>" style="display: <%= q.type === 'fillblank' ? 'block' : 'none' %>;">
+            <label>Correct Answer/Keyword:</label>
+            <input type="text" name="answer_<%= qNum %>" placeholder="Correct answer or keyword" style="width:100%; padding:8px;" value="<%= typeof q.answer === 'string' ? q.answer : '' %>">
+          </div>
+          
+          <div id="textanswer_<%= qNum %>" style="display: <%= (q.type === 'oneline' || q.type === 'paragraph') ? 'block' : 'none' %>;">
+            <label>Sample Answer (for reference):</label>
+            <textarea name="answer_<%= qNum %>" rows="2" placeholder="Sample answer for reference" style="width:100%; padding:8px;"><%= typeof q.answer === 'string' ? q.answer : '' %></textarea>
+          </div>
+          
+          <label>Marks:</label>
+          <input type="number" name="marks_<%= qNum %>" class="marks-input" value="<%= q.marks %>" min="0.5" step="0.5" required>
+        </div>
+      <% }) %>
+    </div>
+
+    <button type="button" onclick="addQuestion()" class="btn btn-outline">+ Add Question</button>
+    <button type="submit" class="btn">Save as New Test</button>
+    <a href="/teacher/my-tests" class="btn btn-outline">Cancel</a>
+  </form>
+</div>
+
+<script>
+  // Initialize all toggleOptions for existing questions
+  <% for(let i = 1; i <= test.questions.length; i++) { %>
+    toggleOptions(<%= i %>);
+  <% } %>
+</script>
+</body>
+</html>

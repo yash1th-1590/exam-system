@@ -1,0 +1,59 @@
+[
+  {
+    "id": "ac51f0dd-4a7f-44c0-8a2a-e68b9206c5bd",
+    "title": "NodeJs",
+    "duration": 30,
+    "correctionMode": "auto",
+    "totalMarks": 10,
+    "createdBy": "teacher1",
+    "createdByName": "Anitha",
+    "questions": [
+      {
+        "id": 1,
+        "type": "single",
+        "question": "What does HTML stand for..",
+        "options": [
+          "Hyper Text Markup Language",
+          "High Text Machine Language",
+          "Hyper Tool Multi Language",
+          "None of These"
+        ],
+        "answer": "Hyper Text Markup Language",
+        "marks": 10
+      }
+    ],
+    "assignedTo": [
+      "s1",
+      "s2",
+      "s3",
+      "s4",
+      "s5",
+      "s6",
+      "s7",
+      "s8",
+      "s9",
+      "s10",
+      "s11",
+      "s12",
+      "s13",
+      "s14",
+      "s15",
+      "s16",
+      "s17",
+      "s18",
+      "s19",
+      "s20",
+      "s21",
+      "s22",
+      "s23",
+      "s24",
+      "s25",
+      "s26",
+      "s27",
+      "s28",
+      "s29",
+      "s30"
+    ],
+    "createdAt": "30/5/2026, 4:40:54 pm"
+  }
+]

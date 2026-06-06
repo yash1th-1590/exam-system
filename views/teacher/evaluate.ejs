@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Evaluate Submission</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .student-answer { background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; }
+  .correct-answer { background: #e8f5e9; padding: 10px; border-left: 4px solid #4caf50; margin: 10px 0; }
+  .answer-text { white-space: pre-wrap; font-family: monospace; background: #fff; padding: 10px; border-radius: 5px; }
+  .marks-input { width: 100px; padding: 5px; margin: 5px 0; }
+  .comment-box { width: 100%; padding: 10px; margin: 10px 0; border: 1.5px solid #dde1f0; border-radius: 8px; font-family: inherit; }
+  .student-response { background: #fff; padding: 10px; border-radius: 5px; margin-top: 5px; border: 1px solid #e0e0e0; }
+  .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; }
+  .badge-info { background: #e3f2fd; color: #1976d2; }
+</style>
+</head>
+<body>
+<nav><span>👩‍🏫 <%= user.name %></span><a href="/teacher/dashboard">← Dashboard</a><a href="/logout">Logout</a></nav>
+<div class="container">
+  <h2>Evaluate: <%= test.title %></h2>
+  <p><strong>Student:</strong> <%= result.studentName %></p>
+  <p><strong>Submitted:</strong> <%= result.submittedAt %></p>
+  <p><strong>Correction Mode:</strong> <span class="badge badge-info"><%= test.correctionMode === 'auto' ? 'Auto-graded' : 'Manual Evaluation' %></span></p>
+  
+  <form method="POST" action="/teacher/evaluate/<%= test.id %>/<%= result.studentId %>">
+    <% test.questions.forEach((q, idx) => { 
+      const answer = result.answers.find(a => a.qId === q.id);
+    %>
+      <div class="student-answer">
+        <h4>Question <%= idx+1 %>: <%= q.question %></h4>
+        <p><strong>Type:</strong> <%= q.type %> | <strong>Max Marks:</strong> <%= q.marks %></p>
+        
+        <div class="correct-answer">
+          <strong>Expected Answer:</strong>
+          <% if(q.type === 'multiple') { %>
+            <ul><% [].concat(q.answer).forEach(ans => { %><li><%= ans %></li><% }) %></ul>
+          <% } else { %>
+            <p><%= q.answer || '(Sample answer provided for reference)' %></p>
+          <% } %>
+        </div>
+        
+        <div>
+          <strong>Student's Answer:</strong>
+          <div class="student-response">
+            <% if(q.type === 'multiple') { %>
+              <% if(answer.given && answer.given.length) { %>
+                <ul><% [].concat(answer.given).forEach(ans => { %><li><%= ans %></li><% }) %></ul>
+              <% } else { %>
+                <p><em>No answer selected</em></p>
+              <% } %>
+            <% } else { %>
+              <p class="answer-text"><%= answer.given || '(No answer provided)' %></p>
+            <% } %>
+          </div>
+        </div>
+        
+        <div style="margin-top: 15px;">
+          <label><strong>Awarded Marks:</strong></label>
+          <input type="number" name="awarded_<%= q.id %>" class="marks-input" 
+                 value="<%= answer.awarded !== null ? answer.awarded : 0 %>" 
+                 min="0" max="<%= q.marks %>" step="0.5" required>
+          <small>/ <%= q.marks %></small>
+        </div>
+      </div>
+    <% }) %>
+    
+    <div>
+      <label><strong>Teacher's Comment (visible to student):</strong></label>
+      <textarea name="comment" class="comment-box" rows="4" placeholder="Add feedback for the student..."><%= result.teacherComment || '' %></textarea>
+    </div>
+    
+    <button type="submit" class="btn">Save Evaluation</button>
+    <a href="/teacher/results/<%= test.id %>" class="btn btn-outline">Cancel</a>
+  </form>
+</div>
+</body>
+</html>
